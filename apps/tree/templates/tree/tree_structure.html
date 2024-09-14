@@ -34,7 +34,6 @@
 </main>
  <script>
     $(".main-hierarchy").click(function (event) {
-        console.log($(event.target))
             var organizationId = $(event.target).attr("data-id")
             if (organizationId) {
             var clickedElement = $(`li[data-id="${organizationId}"]`)
@@ -52,7 +51,6 @@
                 let baseUrl = window.location.protocol + '//' + window.location.host
 
                 $.get(`${baseUrl}/${organizationId}/`, function(data) {
-                    console.log('Success:', data);
                     clickedElementChilde.append($(`
                         <li data-role="node" class="list-group-item" data-id=${organizationId} data-selected="true">
                             <table class="table">
