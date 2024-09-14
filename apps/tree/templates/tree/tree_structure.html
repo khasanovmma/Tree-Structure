@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+
+{% block main %}
+<main class="flex-shrink-0">
+    <div class="container">
+        <h1 class="mt-5">Древовидная структура</h1>
+
+        <div class="container d-flex justify-content-between">
+            <div class="col-12" id="tree" data-type="tree" data-guid="6903d15f-5d74-ca94-5bcd-11069228522f"
+                class="gj-unselectable gj-tree-bootstrap-5">
+                <ul class="gj-list gj-list-bootstrap main-hierarchy">
+                    {% for organization in organizations %}
+                    <li data-id={{ organization.id }}  data-role="node" class="list-group-item" data-selected="true">
+                        <div data-role="wrapper">
+                            <span data-role="spacer" style="width: 0px;"></span>
+                            <span data-role="expander" data-mode="close" class="gj-tree-material-icons-expander">
+                                <i class="gj-icon plus" data-id={{ organization.id }}>test</i>
+                            </span>
+                            <span data-role="display" data-id={{ organization.id }}>{{ organization }} </span>
+                        </div>
+                        <ul class="gj-list gj-list-bootstrap gj-hidden" style="display: none;" data-id={{ organization.id }}>
+
+
+                        </ul>
+
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+</main>
+ <script>
+    $(".main-hierarchy").click(function (event) {
+        console.log($(event.target))
+            var organizationId = $(event.target).attr("data-id")
+            if (organizationId) {
+            var clickedElement = $(`li[data-id="${organizationId}"]`)
+                if (clickedElement.hasClass("active")) {
+                    clickedElement.removeClass('active');
+                    clickedElement.find(`i[data-id="${organizationId}"]`).removeClass('miuns').addClass('plus');
+                    clickedElement.find(`ul[data-id="${organizationId}"]`).html("")
+                    $(`li[data-id=${organizationId}] .table`).html("")
+                }
+                else{
+                clickedElement.addClass('active');
+                clickedElement.find(`i[data-id="${organizationId}"]`).removeClass('plus').addClass('minus');
+                let clickedElementChilde = clickedElement.find(`ul[data-id="${organizationId}"]`)
+                clickedElementChilde.css({ "display": "block"})
+                let baseUrl = window.location.protocol + '//' + window.location.host
+
+                $.get(`${baseUrl}/${organizationId}/`, function(data) {
+                    console.log('Success:', data);
+                    clickedElementChilde.append($(`
+                        <li data-role="node" class="list-group-item" data-id=${organizationId} data-selected="true">
+                            <table class="table">
+                            </div>
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">ФИО</th>
+                                    <th scope="col">Должность</th>
+                                    <th scope="col">Дата найма</th>
+                                    <th scope="col">Зарплата</th>
+                                    <th scope="col">Подразделение</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                        </li>
+                        `))
+                    for (let i = 0; i < data['children'].length; i++) {
+                        span_width = `span[style-data=${organizationId}]`
+                        width = clickedElement.find(span_width).width() ? clickedElement.find(span_width).width() + 10 : 10
+                        let newElement = $(`<li data-role="node" class="list-group-item" data-id=${data['children'][i]['id']} data-selected="false">
+                            <div data-role="wrapper" data-id=${data["children"][i]["id"]}>
+                                <span data-role="spacer" style="width: ${width}px" style-data=${data['children'][i]['id']}></span>
+                                <span data-role="expander" data-mode="close" class="gj-tree-material-icons-expander" data-id=${data['children'][i]['id']}>
+                                    <i class="gj-icon plus" data-id=${data['children'][i]['id']}></i>
+                                </span>
+                                <span data-role="display" data-id=${data['children'][i]['id']}>${data['children'][i]["name"]}</span>
+                            </div>
+                            <ul class="gj-list gj-list-bootstrap gj-hidden" style="display: none;" data-id=${data['children'][i]['id']}>
+                            </ul>
+                            <div>
+
+                        </li>}`)
+                        clickedElementChilde.append(newElement);
+
+
+                        $(`li[data-id=${organizationId}] .table`).find('tbody').append((`
+                            <tr>
+                                <th scope="row">${i+1}</th>
+                                <td>${data['employees'][i]['full_name']}</td>
+                                <td>${data['employees'][i]['position']}</td>
+                                <td>${data['employees'][i]['hire_date']}</td>
+                                <td>${data['employees'][i]['salary']}</td>
+                                <td>${data['employees'][i]['organization']}</td>
+                            </tr>`))
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                });
+                }
+
+        }
+
+
+    });
+</script>
+{% endblock %}
