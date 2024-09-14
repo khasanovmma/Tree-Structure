@@ -1,10 +1,11 @@
-# Django Project Template
+# Django Project
 
 ![Django Logo](https://www.djangoproject.com/s/img/logos/django-logo-negative.png)
 
-## Introduction
+## About Project
 
-Welcome to our Django project template! This template is designed to kickstart web development using Django, a high-level Python web framework.
+Create a web page that will display a tree structure of departments
+with a list of employees
 
 ## Installation
 
@@ -25,32 +26,19 @@ Welcome to our Django project template! This template is designed to kickstart w
 4.  Run Migrations
     `python manage.py migrate`
 
-5.  Start the Development Server
+5. Populate db with fake data:
+    `python manage.py generate_fake_data`
+
+6.  Start the Development Server
     `python manage.py runserver`
 
-6.  Access the Application Open your browser and go to `http://localhost:8000`
+7.  Access the Application Open your browser and go to `http://localhost:8000`
 
 ## Configuration
 
 - Settings: Adjust settings in the `settings.py` file to suit your needs.
 - Database: Configure database settings in the `settings.py` file.
 - Static and Media Files: Configure paths and settings for handling static and media files.
-
-## Usage
-
-- Create Django apps using `python manage.py startapp apps/{your_app_name}`.
-- Define models in the app's `models.py` file.
-- Create views, URLs, and templates to build your web application.
-- Utilize Django admin for managing data (superuser can be created using `python manage.py createsuperuser`).
-
-## Testing
-
-- Run tests using the `python` manage.py test`.
-
-## Deployment
-
-- Deploy on your preferred platform by following their specific deployment guidelines.
-- Set environment variables for production settings.
 
 ## Support
 
