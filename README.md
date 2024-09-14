@@ -26,16 +26,16 @@ with a list of employees
 4. Implement in root `.env` file:
     Example: `.env.example`
 
-4.  Run Migrations
+5.  Run Migrations
     `python manage.py migrate`
 
-5. Populate db with fake data:
+6. Populate db with fake data:
     `python manage.py generate_fake_data`
 
-6.  Start the Development Server
+7.  Start the Development Server
     `python manage.py runserver`
 
-7.  Access the Application Open your browser and go to `http://localhost:8000`
+8.  Access the Application Open your browser and go to `http://localhost:8000`
 
 ## Configuration
 
