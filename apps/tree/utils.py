@@ -9,7 +9,7 @@ class CreateFakeOrganizationHierarchyService:
         self.organizations_per_level = (
             organization_per_level  # Подразделений на каждом уровне
         )
-        self.total_employees = total_employees  # Количество сотрудников
+        self.total_employees = total_employees
         self.fake = Seed.faker(locale="ru-RU", codename="ru-RU")
         self.organizations = []
 
