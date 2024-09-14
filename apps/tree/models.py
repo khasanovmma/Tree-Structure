@@ -18,7 +18,7 @@ class Employee(CreatedUpdatedAbstractModel):
     full_name = models.CharField(max_length=255)
     position = models.CharField(max_length=255)
     hire_date = models.DateField()
-    salary = models.DecimalField(max_digits=12, decimal_places=2)
+    salary = models.PositiveIntegerField()
     organization = models.ForeignKey(
         "tree.Organization", on_delete=models.CASCADE, related_name="employees"
     )
