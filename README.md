@@ -23,6 +23,9 @@ with a list of employees
 3.  Install Dependencies
     `pip install -r requirements/dev.txt`
 
+4. Implement in root `.env` file:
+    Example: `.env.example`
+
 4.  Run Migrations
     `python manage.py migrate`
 
